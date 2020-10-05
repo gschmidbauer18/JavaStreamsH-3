@@ -5,6 +5,8 @@
  */
 package javastreamhue3.JavaStreamHUE3;
 
+import java.util.Objects;
+
 /**
  *
  * @author 43676
@@ -62,6 +64,57 @@ public class Weapon {
 
     @Override
     public String toString() {
-        return name + ", combatType=" + combatType + ", damageType=" + damageType + ", damage=" + damage + ", speed=" + speed + ", minStrength=" + minStrength + ", value=" + value;
+        return "Weapon{" + "name=" + name + ", combatType=" + combatType + ", damageType=" + damageType + ", damage=" + damage + ", speed=" + speed + ", minStrength=" + minStrength + ", value=" + value + '}';
+    }
+    
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + Objects.hashCode(this.combatType);
+        hash = 11 * hash + Objects.hashCode(this.damageType);
+        hash = 11 * hash + this.damage;
+        hash = 11 * hash + this.speed;
+        hash = 11 * hash + this.minStrength;
+        hash = 11 * hash + this.value;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Weapon other = (Weapon) obj;
+        if (this.damage != other.damage) {
+            return false;
+        }
+        if (this.speed != other.speed) {
+            return false;
+        }
+        if (this.minStrength != other.minStrength) {
+            return false;
+        }
+        if (this.value != other.value) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.combatType != other.combatType) {
+            return false;
+        }
+        if (this.damageType != other.damageType) {
+            return false;
+        }
+        return true;
     }
 }

@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -31,11 +32,21 @@ public class main {
                 {
                     weapons.add(new Weapon(lineArr[0],CombatType.valueOf(lineArr[1]),DamageType.valueOf(lineArr[2]),Integer.parseInt(lineArr[3]),Integer.parseInt(lineArr[4]),Integer.parseInt(lineArr[5]),Integer.parseInt(lineArr[6])));
                 }
-                br.readLine();
             }
         } catch (IOException e) {
+            System.out.println("IOException");
         }
-    
+        
+        weapons.sort(new Comparator<Weapon>(){
+            @Override
+            public int compare(Weapon o1, Weapon o2) {
+                return o2.getDamage()-o1.getDamage();
+            }
+            
+        });
+        
+        weapons.sort((Weapon o1, Weapon o2) -> o1.getName().compareTo(o2.getName()));        
+        
         weapons.forEach(System.out::println);
     }
 
