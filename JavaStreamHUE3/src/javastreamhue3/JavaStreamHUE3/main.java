@@ -6,10 +6,17 @@
 package javastreamhue3.JavaStreamHUE3;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -22,7 +29,7 @@ public class main {
      */
     public static void main(String[] args) {
         String filename = "weapons.csv";
-        ArrayList<Weapon> weapons=new ArrayList<>();
+        List<Weapon> weapons=new ArrayList<>();
         
         try (final BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -121,6 +128,28 @@ public class main {
         };
         
         weapons.forEach((weapon)->pa2.print(weapon));
+        
+        try {
+            weapons=Files.lines(new File("weapons.csv").toPath())
+                    .skip(1)
+                    .map(s -> s.split(";"))
+                    .map(s -> new Weapon(
+                            s[0],
+                            CombatType.valueOf(s[1]),
+                            DamageType.valueOf(s[2]),
+                            Integer.parseInt(s[3]),
+                            Integer.parseInt(s[4]),
+                            Integer.parseInt(s[5]),
+                            Integer.parseInt(s[6])
+                    ))
+                    .collect(Collectors.toList());
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println(" ");
+        System.out.println(" ");
+        weapons.forEach((weapon)->pa2.print(weapon));
     }
     
     private static void tabellenStrich()
@@ -134,5 +163,6 @@ public class main {
         System.out.println("+");
                 //System.out.println("+-----------------+");
     }
-
+    
+    
 }
