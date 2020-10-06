@@ -47,7 +47,92 @@ public class main {
         
         weapons.sort((Weapon o1, Weapon o2) -> o1.getName().compareTo(o2.getName()));        
         
-        weapons.forEach(System.out::println);
+        Printable pa=(Weapon weapon) -> {
+            System.out.println(weapon.getName() + ", CombatType: " + weapon.getCombatType().toString() + ", damageType: " + weapon.getDamageType().toString() + ", damage: " + weapon.getDamage() + ", speed: " + weapon.getSpeed() + ", minStrength: " + weapon.getMinStrength() + ", value: " + weapon.getValue());
+        };
+        
+        Printable pa2= (Weapon weapon) -> {
+            int länge;
+            String längeString="";
+            
+            tabellenStrich();
+            
+            int leer=16-weapon.getName().length();
+            for(int i=0;i<=leer;i++)
+            {
+                längeString=längeString+" ";
+            }
+            System.out.print("|"+weapon.getName()+längeString+"|");
+            längeString="";
+            
+            leer=16-weapon.getCombatType().toString().length();
+            for(int i=0;i<=leer;i++)
+            {
+                längeString=längeString+" ";
+            }
+            System.out.print(weapon.getCombatType().toString()+längeString+"|");
+            längeString="";
+            
+            leer=16-weapon.getDamageType().toString().length();
+            for(int i=0;i<=leer;i++)
+            {
+                längeString=längeString+" ";
+            }
+            System.out.print(weapon.getDamageType()+längeString+"|");
+            längeString="";
+            
+            String damage=Integer.toString(weapon.getDamage());
+            leer=16-damage.length();
+            for(int i=0;i<=leer;i++)
+            {
+                längeString=längeString+" ";
+            }
+            System.out.print(weapon.getDamage()+längeString+"|");
+            längeString="";
+            
+            String speed=Integer.toString(weapon.getSpeed());
+            leer=16-speed.length();
+            for(int i=0;i<=leer;i++)
+            {
+                längeString=längeString+" ";
+            }
+            System.out.print(weapon.getSpeed()+längeString+"|");
+            längeString="";
+            
+            String strength=Integer.toString(weapon.getMinStrength());
+            leer=16-strength.length();
+            for(int i=0;i<=leer;i++)
+            {
+                längeString=längeString+" ";
+            }
+            System.out.print(weapon.getMinStrength()+längeString+"|");
+            längeString="";
+            
+            String value=Integer.toString(weapon.getValue());
+            leer=16-value.length();
+            for(int i=0;i<=leer;i++)
+            {
+                längeString=längeString+" ";
+            }
+            System.out.print(weapon.getValue()+längeString+"|");
+            längeString="";
+            
+            System.out.println("");
+        };
+        
+        weapons.forEach((weapon)->pa2.print(weapon));
+    }
+    
+    private static void tabellenStrich()
+    {
+        for(int i=0;i<=6;i++)
+            
+                {
+                    
+                    System.out.print("+-----------------");
+                }
+        System.out.println("+");
+                //System.out.println("+-----------------+");
     }
 
 }
