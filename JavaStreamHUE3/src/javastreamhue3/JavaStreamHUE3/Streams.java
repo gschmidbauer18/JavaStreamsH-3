@@ -8,8 +8,7 @@ import java.util.stream.Collectors;
 public class Streams {
 
     public double average(int[] numbers) {
-        double[] darray = Arrays.stream(numbers).mapToDouble(Number::doubleValue);
-        return Arrays.stream(darray).average().getAsDouble();
+        return Arrays.stream(numbers).average().getAsDouble();
     }
 
     public List<String> upperCase(String[] strings) {
@@ -31,8 +30,8 @@ public class Streams {
     }
 
     public Weapon findWeaponWithLongestName(List<Weapon> weapons) {
-        return weapons.stream().map(w->w.getName().length()).max(Comparator.comparing(Weapon::getName));
-    }
+        return weapons.stream().max(Comparator.comparing(Weapon::getName)).get();
+    }  
 
     public List<String> toNameList(List<Weapon> weapons) {
         return weapons.stream().map(w -> w.getName()).collect(Collectors.toList());
@@ -55,6 +54,6 @@ public class Streams {
     }
 
     public void increaseValuesByTenPercent(List<Weapon> weapons) {
-        weapons.stream().forEach(w -> w.setValue(w.getValue() + ((w.getValue()/100)*10)));
+        weapons.stream().forEach(w -> w.setValue((int) Math.round(w.getValue()*1.1)));
     }
 }
