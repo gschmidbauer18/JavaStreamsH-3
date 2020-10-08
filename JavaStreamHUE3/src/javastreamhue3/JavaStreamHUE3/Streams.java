@@ -1,62 +1,60 @@
 package javastreamhue3.JavaStreamHUE3;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Streams {
 
     public double average(int[] numbers) {
-        double[] darray=Arrays.stream(numbers).mapToDouble(Number::doubleValue);
+        double[] darray = Arrays.stream(numbers).mapToDouble(Number::doubleValue);
         return Arrays.stream(darray).average().getAsDouble();
     }
-    
+
     public List<String> upperCase(String[] strings) {
         return Arrays.stream(strings)
                 .map(s -> s.toUpperCase())
                 .collect(Collectors.toList());
     }
-    
+
     public Weapon findWeaponWithLowestDamage(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().min(Comparator.comparing(Weapon::getDamage)).get();
     }
-    
+
     public Weapon findWeaponWithHighestStrength(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().max(Comparator.comparing(Weapon::getMinStrength)).get();
     }
-    
+
     public List<Weapon> collectMissileWeapons(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().filter(w -> w.getDamageType().equals(DamageType.MISSILE)).collect(Collectors.toList());
     }
-    
+
     public Weapon findWeaponWithLongestName(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().map(w->w.getName().length()).max(Comparator.comparing(Weapon::getName));
     }
-    
+
     public List<String> toNameList(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().map(w -> w.getName()).collect(Collectors.toList());
     }
-    
+
     public int[] toSpeedArray(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().mapToInt(w -> w.getSpeed()).toArray();
     }
-    
+
     public int sumUpValues(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().mapToInt(w -> w.getValue()).reduce(0, (w1, w2) -> w1 + w2);
     }
-    
+
     public long sumUpHashCodes(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().mapToInt(w -> w.hashCode()).reduce(0, (w1, w2) -> w1 + w2);
     }
-    
+
     public List<Weapon> removeDuplicates(List<Weapon> weapons) {
-        //implement this
+        return weapons.stream().distinct().collect(Collectors.toList());
     }
-    
+
     public void increaseValuesByTenPercent(List<Weapon> weapons) {
-       //implement this
+        weapons.stream().forEach(w -> w.setValue(w.getValue() + ((w.getValue()/100)*10)));
     }
 }

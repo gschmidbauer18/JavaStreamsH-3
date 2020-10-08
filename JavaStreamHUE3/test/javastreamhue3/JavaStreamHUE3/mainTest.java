@@ -72,13 +72,13 @@ public class mainTest {
             
         });
         
-        assertFalse(weapons.get(0).getName().toLowerCase().equals("carsomyr"));
+        assertFalse(weapons.get(0).getName().toLowerCase().equals("flail of ages"));
         
     }
     
     @Test
     public void testMain2() {
-        System.out.println("main");
+        System.out.println("main2");
         String filename = "weapons.csv";
         ArrayList<Weapon> weapons=new ArrayList<>();
         
