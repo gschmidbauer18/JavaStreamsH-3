@@ -13,10 +13,13 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  *
@@ -150,6 +153,49 @@ public class main {
         System.out.println(" ");
         System.out.println(" ");
         weapons.forEach((weapon)->pa2.print(weapon));
+    
+        System.out.println(" ");
+        System.out.println(" ");
+        
+        Random random = new Random();
+        IntStream intStream = random.ints(0, 10000);
+        
+        int[] iarr= random.ints(100, 0, 10000).toArray();
+        
+        int lLimit = 97;//Buchstabe a
+        int rLimit = 122; //Buchstabe z
+        int länge = 10;
+        
+        String[] sarr=new String[10];
+        for(int i=0;i<10;i++)
+        {
+            sarr[i]=random.ints(lLimit, rLimit+1)
+                    .limit(länge)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString();
+                    
+        }
+        StringBuilder s=new StringBuilder();
+        //ints -> Stream von int inerhalb der begrenzungen
+        //limit -> stream mit values die alle inerhalb der festgelegten länge sind
+        //appendCodePoint -> wandelt String in char array um
+        //append -> fügt etwas an das "appendable" an
+        
+        final Predicate<Integer> isEven = i -> i%2==0;
+        final Predicate<Integer> isPositive = i -> i>=0;
+        final Predicate<Integer> isZero = i -> i==0;
+        final Predicate<Integer> isNull = i -> i==null;
+        
+        final Predicate<String> isShortWord = string -> string.length()<=4;
+        
+        final Predicate<Integer> isEvenAndPos= i -> isEven.test(i)&&isPositive.test(i);
+        final Predicate<Integer> isPositivAndUneven= i -> !isEven.test(i)&&isPositive.test(i);
+        
+        final int result= IntStream.of(1,2,3,4,5,6,7,8,9,10).filter(i -> !isEven.test(i))
+                                                            .map(i -> i=i*i)
+                                                            .reduce(0, (i1,i2) -> i1+i2);
+        
+        System.out.println(result);
     }
     
     private static void tabellenStrich()

@@ -18,11 +18,19 @@ public class Streams {
     }
 
     public Weapon findWeaponWithLowestDamage(List<Weapon> weapons) {
-        return weapons.stream().min(Comparator.comparing(Weapon::getDamage)).get();
+        if (!weapons.isEmpty()) {
+            return weapons.stream().min(Comparator.comparing(Weapon::getDamage)).get();
+        } else {
+            return null;
+        }
     }
 
     public Weapon findWeaponWithHighestStrength(List<Weapon> weapons) {
-        return weapons.stream().max(Comparator.comparing(Weapon::getMinStrength)).get();
+        if (!weapons.isEmpty()) {
+            return weapons.stream().max(Comparator.comparing(Weapon::getMinStrength)).get();
+        } else {
+            return null;
+        }
     }
 
     public List<Weapon> collectMissileWeapons(List<Weapon> weapons) {
@@ -30,11 +38,16 @@ public class Streams {
     }
 
     public Weapon findWeaponWithLongestName(List<Weapon> weapons) {
-        return weapons.stream().max(Comparator.comparing(Weapon::getName)).get();
-    }  
+        if (!weapons.isEmpty()) {
+            return weapons.stream().sorted((w1, w2) -> Integer.compare(w2.getName().length(), w1.getName().length())).findFirst().get();
+        } else {
+            return null;
+        }
+    }
 
     public List<String> toNameList(List<Weapon> weapons) {
         return weapons.stream().map(w -> w.getName()).collect(Collectors.toList());
+
     }
 
     public int[] toSpeedArray(List<Weapon> weapons) {
@@ -54,6 +67,6 @@ public class Streams {
     }
 
     public void increaseValuesByTenPercent(List<Weapon> weapons) {
-        weapons.stream().forEach(w -> w.setValue((int) Math.round(w.getValue()*1.1)));
+        weapons.stream().forEach(w -> w.setValue((int) Math.round(w.getValue() * 1.1)));
     }
 }
